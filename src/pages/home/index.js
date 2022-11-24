@@ -5,9 +5,11 @@ import { CgSmileSad } from "react-icons/cg"
 import Titlepage from '../../components/titlepage';
 import Image from '../../components/image';
 import SearchBar from '../../components/search';
+import Headermenu from '../../components/main';
 
 import mangaService from '../../services/manga.service';
-import Headermenu from '../../components/main';
+
+import {BsFillBucketFill} from "react-icons/bs";
 
 const Home = () => {
     const [mangas, setMangas] = useState([]);
@@ -50,29 +52,37 @@ const Home = () => {
                             </div>
                         )}
                     </div>
-                ): <>
+                ): <DivEl>
                 {
                     mangas.map((element) => (
                         <DivElement key={element._id}>
-                            <Image styleImage={{ width: '150px' }} path={element.image} description="image manga">
+                            <Image styleImage={{ width: '200px' }} path={element.image} description="image manga">
                             </Image>
                             <P>{element.name}</P>
                         </DivElement>
                     ))
                 }
-                </>
+                </DivEl>
                 }
             
         </Div>
     );
 };
 
-const DivElement = styled.div`
-  display: grid;
-    grid-template-columns: repeat(6, 1fr);
+const DivEl = styled.div`
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
     margin-left:5%;
     margin-right:5%;
     margin-top:60px;
+   
+`
+
+const DivElement = styled.div`
+margin:auto;
+background-color: black;
    
 `
 const ImageElement = styled.img`
