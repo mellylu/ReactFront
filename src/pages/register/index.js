@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import authService from "../../services/user.service"
 import Input from "../../components/input";
+import Modal from "../../components/modal";
+import Button from "../../components/button";
 
 const Index = () => {
   const [user, setUser] = useState({});
@@ -21,9 +23,10 @@ const Index = () => {
   };
 
   return (
+    <Modal styleImage={{width: '500px'}}title="S'inscrire">
     <div>
-
-        <form onSubmit={(e) => handleSubmit(e)}>
+      <form>
+        {/* <form onSubmit={(e) => handleSubmit(e)}> */}
           <Input
             type="text"
             label="Nom"
@@ -68,10 +71,12 @@ const Index = () => {
               setUser({ ...user, password: e.target.value })
             }}
           />
-          <input className="btn btn-red" type="submit" value="M'inscrire" />
-          
+          {/* <input className="btn btn-red" type="submit" value="M'inscrire" /> */}
+          <Button styleButton={{ color: '#303030' }} onClick={(e) => handleSubmit(e)} title="S'inscrire" />
         </form>
-    </div>
+        <Button title="Vous avez déjà compte ? Connectez vous" styleButton={{ bgColor: '#303030', color: '#fefee0', sizeButton: '6px' }}/>
+        </div>
+    </Modal>
 
   );
 };

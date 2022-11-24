@@ -18,42 +18,62 @@ const Input = ({label, type, id, value, placeholder, required, onChange}) => {
     }
 
     return (
-        <div //className={`relative flex flex-col ${props.className && props.className}`}
-        >
+        <div>
             {label && (
                 <div //className="flex justify-between items-center mb-2"
                 >
-                    <label htmlFor={label} //className="mb-1 text-left cursor-pointer"
+                    <LabelInput htmlFor={label} //className="mb-1 text-left cursor-pointer"
                     >
                         {label}
-                    </label>
+                    </LabelInput>
                 </div>
             )}
-            <InputForm
+            <DivInput>
+            <TextInputForm 
                 type={type}
                 id={label}
                 value={value}
                 placeholder={placeholder}
                 required={required}
                 onChange={onChange}
-            />
-            {type === 'password' && (
+                />
+            <IconInput>{type === 'password' && (
                 <button
-                    //className="absolute right-2 sm:right-4 bottom-3 sm:bottom-5 text-slate-800"
                     type="button"
                     onClick={hidePass}
                 >
                     {hide ? <FiEyeOff /> : <FiEye />}
                 </button>
             )}
+            </IconInput>
+            </DivInput>
         </div>
     )
 }
 
-const InputForm = styled.input`
-
+const DivInput = styled.div`
+    flex: auto;
+    display: flex;
+    flex-direction: row;
+    `
+const TextInputForm = styled.input`
+    border-radius: 5px;
+    background-color: #fefee0;
+    color: black;
+    padding: 2%;
+    margin-top: 15px;
+    margin-bottom: 15px;
 `
 
+const LabelInput = styled.label`
+    color: #fefee0;
+`
 
+const IconInput = styled.div`
+    flex: auto;
+    display: flex;
+    margin-top: 15px;
+    margin-bottom: 15px;
+`
 
 export default Input

@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react'
+import { Navigate, useHistory, redirect} from 'react-router-dom'
+import styled from 'styled-components'
 
 import Input from '../../components/input'
+import Button from '../../components/button'
 
 import userService from '../../services/user.service'
+import Modal from '../../components/modal'
 
 const Login = () => {
     const [user, setUser] = useState({})
+    // const navigate = Navigate()
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -19,10 +24,15 @@ const Login = () => {
             })
     }
 
+    // const goRegister=()=> {
+    //     let url = "/register";
+    //     navigate.push(url);
+    //   }
+
     return (
-        <div>
-            <h1 className="text-center">SearchToLearn</h1>
-            <form onSubmit={e => handleSubmit(e)}>
+        <LoginDiv>
+            <Modal title="Se connecter">
+            <form>
                 <Input
                     label="Identifiant"
                     placeholder="john.doe@pinotes.com"
@@ -44,11 +54,24 @@ const Login = () => {
                         setUser({ ...user, password: e.target.value })
                     }}
                 />
-                <input className="btn btn-red" width="100" type="submit" value="S'identifier" />
+                <Button styleButton={{ color: '#303030' }} onClick={(e) => handleSubmit(e)} title="Se connecter" />
             </form>
-        </div>
+            {/* <button onClick={()=> redirect("/register")}> */}
+            
+            <div>
+             <Button title="Inscrivez vous" styleButton={{ bgColor: '#303030', color: '#fefee0', sizeButton: '24px' }}/>
+              | 
+             <Button title="Mot de passe oublié ?" styleButton={{ bgColor: '#303030', color: '#fefee0', sizeButton: '24px' }}/>
+             </div>
+            </Modal>
+        </LoginDiv>
     )
 }
 
-export default Login
+const LoginDiv = styled.div`
+  background-color: #fefee0;
+   
+`
 
+
+export default Login
