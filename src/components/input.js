@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import { FiEye, FiEyeOff } from 'react-icons/fi'
 
-const Input = ({label, type, id, value, placeholder, required, onChange}) => {
+const Input = ({label, type, value, placeholder, required, onChange}) => {
     const [hide, setHide] = useState(true)
 
     const hidePass = e => {

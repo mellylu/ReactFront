@@ -5,6 +5,7 @@ import {
   RouterProvider,
   Route,
 } from "react-router-dom";
+import styled from 'styled-components'
 
 import Login from './pages/login';
 import Register from './pages/register'
@@ -13,10 +14,6 @@ import Home from './pages/home';
 
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
-
-
-
-
 
 const router = createBrowserRouter([
   {
@@ -42,6 +39,7 @@ root.render(
     <RouterProvider router={router} />
   </React.StrictMode>
 );
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

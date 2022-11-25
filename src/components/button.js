@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Button = ({ title, onClick, styleButton}) => (
-    <ButtonContainer onClick={onClick} styleButton={styleButton}>
+const Button = ({ title, onClick, styleButton, colorButton}) => (
+    <ButtonContainer onClick={onClick} styleButton={styleButton} style={colorButton}>
         {title && (
-            <ButtonP color={`${styleButton?.color ? styleButton.color : '#303030'}`}>{title}</ButtonP>
+            <ButtonP styleButton={styleButton} color={`${colorButton?.color ? colorButton?.color : '#303030'}`}>{title}</ButtonP>
         )}
     </ButtonContainer>
 )

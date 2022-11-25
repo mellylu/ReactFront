@@ -37,12 +37,12 @@ const Home = () => {
 
             <SearchBar search={search} setSearch={setSearch} />
                 {search.length > 0 ? (
-                    <div>
+                    <DivEl>
                         {filterManga.length > 0 ? (
                             filterManga?.map((element) => 
                             <>
                                 <DivElement key={element._id}>
-                                    <Image path={element.image} description="image manga filtrée" />
+                                    <Image styleImage={{ width: '200px' }} path={element.image} description="image manga filtrée" />
                                     <P>{element.name}</P>
                                 </DivElement>
                         </> )
@@ -51,7 +51,7 @@ const Home = () => {
                                 Aucune note trouvée <CgSmileSad size="20px" />
                             </div>
                         )}
-                    </div>
+                    </DivEl>
                 ): <DivEl>
                 {
                     mangas.map((element) => (

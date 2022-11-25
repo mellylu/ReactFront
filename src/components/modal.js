@@ -35,9 +35,10 @@ const ModalDiv = styled.div`
     background-color: #303030;
     width:auto;
     height:auto;
-    vertical-align: middle;
-    border-radius  : 10px ;
-    margin-top:10%;
+    border-radius: 10px;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    
     `
    
 
@@ -48,7 +49,6 @@ const ModalDiv1 = styled.div`
     flex-direction: row;
     margin-left: 30px;
     margin-right: 30px;
-    
     `
 
 const ModalDiv2 = styled.div`

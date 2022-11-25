@@ -1,11 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import authService from "../../services/user.service"
+
 import Input from "../../components/input";
 import Modal from "../../components/modal";
 import Button from "../../components/button";
 
 const Index = () => {
   const [user, setUser] = useState({});
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -71,10 +75,10 @@ const Index = () => {
               setUser({ ...user, password: e.target.value })
             }}
           />
-          {/* <input className="btn btn-red" type="submit" value="M'inscrire" /> */}
-          <Button styleButton={{ color: '#303030' }} onClick={(e) => handleSubmit(e)} title="S'inscrire" />
+          <Button colorButton={{color: '#303030'}} onClick={(e) => handleSubmit(e)} title="S'inscrire" />
         </form>
-        <Button title="Vous avez déjà compte ? Connectez vous" styleButton={{ bgColor: '#303030', color: '#fefee0', sizeButton: '6px' }}/>
+        <Button onClick={()=> {navigate("/");}} title="Vous avez déjà compte ? Connectez vous" colorButton={{color: '#fefee0'}} styleButton={{ bgColor: '#303030', sizeButton: '10px' }}/>
+            
         </div>
     </Modal>
 

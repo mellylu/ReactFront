@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import { Navigate, useHistory, redirect} from 'react-router-dom'
-import styled from 'styled-components'
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { useNavigate } from "react-router-dom";
+import { AiOutlineMail } from "react-icons/ai";
 
 import Input from '../../components/input'
 import Button from '../../components/button'
@@ -10,7 +11,7 @@ import Modal from '../../components/modal'
 
 const Login = () => {
     const [user, setUser] = useState({})
-    // const navigate = Navigate()
+    const navigate = useNavigate();
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -24,18 +25,13 @@ const Login = () => {
             })
     }
 
-    // const goRegister=()=> {
-    //     let url = "/register";
-    //     navigate.push(url);
-    //   }
-
     return (
         <LoginDiv>
             <Modal title="Se connecter">
             <form>
                 <Input
                     label="Identifiant"
-                    placeholder="john.doe@pinotes.com"
+                    placeholder="john.doe@exemple.com"
                     size="large"
                     className="mb-5"
                     required={true}
@@ -54,14 +50,14 @@ const Login = () => {
                         setUser({ ...user, password: e.target.value })
                     }}
                 />
-                <Button styleButton={{ color: '#303030' }} onClick={(e) => handleSubmit(e)} title="Se connecter" />
+                <Button colorButton={{color:'#303030'}} onClick={(e) => handleSubmit(e)} title="Se connecter" />
             </form>
             {/* <button onClick={()=> redirect("/register")}> */}
             
             <div>
-             <Button title="Inscrivez vous" styleButton={{ bgColor: '#303030', color: '#fefee0', sizeButton: '24px' }}/>
+             <Button onClick={()=> {navigate("/register");}} title="Inscrivez vous" colorButton={{color: '#fefee0'}} styleButton={{ bgColor: '#303030', sizeButton: '10px' }}/>
               | 
-             <Button title="Mot de passe oublié ?" styleButton={{ bgColor: '#303030', color: '#fefee0', sizeButton: '24px' }}/>
+             <Button onClick={()=> {navigate("/forgotpassword");}} title="Mot de passe oublié ?" colorButton={{color: '#fefee0'}} styleButton={{ bgColor: '#303030', sizeButton: '10px' }}/>
              </div>
             </Modal>
         </LoginDiv>
