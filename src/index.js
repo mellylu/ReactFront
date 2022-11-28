@@ -30,7 +30,8 @@ const router = createBrowserRouter([
   },
   {
     path: "/Home",
-    element: <Home />,
+    element: <Home />
+      
   },
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));

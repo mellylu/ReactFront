@@ -12,7 +12,8 @@ const Image = ({path, description, styleImage}) => {
 const Div = styled.img`
     width: ${({styleImage}) => (styleImage?.width ?  styleImage?.width: '350px')};
     height: ${({styleImage}) => (styleImage?.width ?  styleImage?.width: '350px')};
-    
+    padding: ${({styleImage}) => (styleImage?.padding ?  styleImage?.padding: '0px')};
+
 `
 
 export default Image

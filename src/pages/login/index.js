@@ -8,17 +8,36 @@ import Button from '../../components/button'
 
 import userService from '../../services/user.service'
 import Modal from '../../components/modal'
+import Message from '../../components/message';
 
 const Login = () => {
     const [user, setUser] = useState({})
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
+    useEffect(() => {
+        if (localStorage.getItem('token') !== null){
+        navigate('/home')
+    }}
+    )
+
+    
+    
 
     const handleSubmit = e => {
         e.preventDefault()
         userService
             .login(user)
             .then(data => {
-                localStorage.setItem('token', data.token)
+                if (data.auth === true) {
+                    setError(false)
+                    localStorage.setItem('token', data.token)
+                    navigate("/home")
+                }
+                else{
+                    setError(true)
+                    setErrorMessage("Erreur d'email ou de mot de passe")
+                }
             })
             .catch(err => {
                 console.log(err)
@@ -53,7 +72,13 @@ const Login = () => {
                 <Button colorButton={{color:'#303030'}} onClick={(e) => handleSubmit(e)} title="Se connecter" />
             </form>
             {/* <button onClick={()=> redirect("/register")}> */}
-            
+            {
+              error ? (
+                <Message mess={errorMessage} type="error" />
+              )
+                :
+                ""
+            }
             <div>
              <Button onClick={()=> {navigate("/register");}} title="Inscrivez vous" colorButton={{color: '#fefee0'}} styleButton={{ bgColor: '#303030', sizeButton: '10px' }}/>
               | 

@@ -6,20 +6,27 @@ import authService from "../../services/user.service"
 import Input from "../../components/input";
 import Modal from "../../components/modal";
 import Button from "../../components/button";
+import Message from "../../components/message";
 
 const Index = () => {
   const [user, setUser] = useState({});
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     authService.register(user)
       .then(data => {
-        console.log(data);
-        if (data.success === false) {
-          return false;
+        if (data.auth === true) {
+          setError(false)
+          navigate("/")
         }
-        localStorage.setItem("token", data.token);
+        else{
+          setError(true)
+          setErrorMessage("Erreur d'email : il doit contenir un @ et .")
+                
+        }
       })
       .catch(err => {
         console.log(err)
@@ -77,6 +84,13 @@ const Index = () => {
           />
           <Button colorButton={{color: '#303030'}} onClick={(e) => handleSubmit(e)} title="S'inscrire" />
         </form>
+        {
+          error ? (
+            <Message mess={errorMessage} type="error" />
+          )
+            :
+            ""
+        }
         <Button onClick={()=> {navigate("/");}} title="Vous avez déjà compte ? Connectez vous" colorButton={{color: '#fefee0'}} styleButton={{ bgColor: '#303030', sizeButton: '10px' }}/>
             
         </div>
