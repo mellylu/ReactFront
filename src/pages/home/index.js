@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react';
 import styled from 'styled-components'
 import { CgSmileSad } from "react-icons/cg"
-import { BiLogInCircle } from "react-icons/bi";
+import { BiLogInCircle, BiShoppingBag } from "react-icons/bi";
 
 import Titlepage from '../../components/titlepage';
 import Image from '../../components/image';
@@ -54,8 +54,9 @@ const Home = () => {
         <Div>
             <DivMain>
                 <Li><Titlepage title="Liste de mangas" /></Li>
+                <Li><BiShoppingBag color="fefee0" /></Li>
                 <Li><SearchBar search={search} setSearch={setSearch} /></Li>
-                <Li><BiLogInCircle height="100px" color="fefee0" onClick={() => logout()} /></Li>
+                <Li><BiLogInCircle color="fefee0" onClick={() => logout()} /></Li>
             </DivMain>
             {search.length > 0 ? (
                 <DivEl>
@@ -80,10 +81,10 @@ const Home = () => {
                         <Image styleImage={{ width: '200px', padding: "6px", margin:"10px" }} path={element.image} description="image manga">
                         </Image>
                         <P>{element.name}</P>
-                        <P>{element.price} $ <button onClick={()=> 
+                        <P>{element.price} $ | <button onClick={()=> 
                                 panier(element)}>Acheter</button>
                         </P>
-                        </DivElement>
+                    </DivElement>
                 ))
             }
             </DivEl>
@@ -107,20 +108,22 @@ const DivEl = styled.div`
 `
 
 const DivMain = styled.div`
-display: flex;
+    display: flex;
     align-items: center;
-    margin-left: auto;
-    margin-right: auto;
    
 `
 
 const Li = styled.div`
+margin-top: 4%;
+margin-left: 9%;
+margin-right: 8%;
 `
 
 
 const DivElement = styled.div`
 margin:auto;
 background-color: black;
+margin-bottom: 20%;
    
 `
 const ImageElement = styled.img`
