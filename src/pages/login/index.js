@@ -15,6 +15,7 @@ const Login = () => {
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
+    
     useEffect(() => {
         if (localStorage.getItem('token') !== null){
         navigate('/home')

@@ -11,9 +11,13 @@ import Login from './pages/login';
 import Register from './pages/register'
 import Forgotpassword from './pages/forgotpassword';
 import Home from './pages/home';
+import Cart from './pages/cart';
+
+import { CartContextProvider } from './context/CartContext'
 
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import { BsCart4 } from 'react-icons/bs';
 
 const router = createBrowserRouter([
   {
@@ -33,12 +37,19 @@ const router = createBrowserRouter([
     element: <Home />
       
   },
+  {
+    path: "/Cart",
+    element: <Cart />
+      
+  },
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <CartContextProvider>
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>
+  </CartContextProvider> 
 );
 
 

@@ -24,11 +24,20 @@ export const CartContextProvider = ({ children }) => {
             else if(!cart){
                 setCart([item]);
             }
+        }
+
+        const removeItem = (idItem) => {
+            console.log(idItem);
             
-       
-    }
+            localStorage.removeItem("cart")
+            setCart(cart.filter(item => item.id !== idItem));
+        }
+
+        const clearCart = () => {
+            setCart(null);
+        }
     //prend en argument l'élément qu'on va ajouter, et on utilise le setCart c'est comme un push
-    const context = {cart, count, addItem}
+    const context = {cart, count, addItem, removeItem, clearCart}
 
     useEffect(()=> {
         localStorage.setItem("cart", JSON.stringify(cart)) //si il y a rien dans mon local storage

@@ -11,7 +11,7 @@ import Headermenu from '../../components/main';
 import mangaService from '../../services/manga.service';
 
 import {BsFillBucketFill} from "react-icons/bs";
-import CartContext, { CartContextProvider } from '../../context/CartContext';
+import CartContext from '../../context/CartContext';
 import Button from '../../components/button';
 import { useNavigate } from 'react-router-dom';
 
@@ -43,7 +43,12 @@ const Home = () => {
 
     const panier = (e) => {
         addItem(e)
+        
     }
+
+    useEffect(() => {
+        console.log(cart)
+    }, [cart])
 
     const logout = () => {
         localStorage.clear();
@@ -54,7 +59,7 @@ const Home = () => {
         <Div>
             <DivMain>
                 <Li><Titlepage title="Liste de mangas" /></Li>
-                <Li><BiShoppingBag color="fefee0" /></Li>
+                <Li><BiShoppingBag color="fefee0" onClick={() => navigate('/Cart')}/></Li>
                 <Li><SearchBar search={search} setSearch={setSearch} /></Li>
                 <Li><BiLogInCircle color="fefee0" onClick={() => logout()} /></Li>
             </DivMain>
@@ -70,7 +75,7 @@ const Home = () => {
                     </> )
                     ) : (
                         <div>
-                            Aucune note trouvée <CgSmileSad size="20px" />
+                            Aucun manga trouvé <CgSmileSad size="20px" />
                         </div>
                     )}
                 </DivEl>
