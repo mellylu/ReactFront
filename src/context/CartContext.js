@@ -1,56 +1,59 @@
 //context permet de partager les données qui peuvent être utilisé comme globale
-import {createContext, useState, useEffect} from 'react'
+import { createContext, useState, useEffect } from "react"
+import React from "react"
+import { toast } from "react-toastify"
 
-let cart = typeof window !== "undefined" ? localStorage.getItem('cart') : []
-
-const CartContext = createContext({ //elements à l'initialisation du context
-    cart: [], //tableau vide
+const CartContext = createContext({
+    cart: [],
     removeItem: () => {},
     addItem: () => {},
-    clearCart:() => {},//supprimer tout le panier
-    count:0
+    clearCart: () => {},
+    count: 0,
 })
 export const CartContextProvider = ({ children }) => {
-    //composant encapsuler dans toute l'appli en passe children dedans
-    console.log("lllllllllllll")    
-    const [cart, setCart] = useState(typeof window !== "undefined" ? JSON.parse(localStorage.getItem('cart')) : []);
-        
-        const count = cart && cart.length || 0;
-        const addItem = (item) => {
-            console.log("mmmmmmmmmmmm")
-            if (cart && cart.length > 0){
+    const [cart, setCart] = useState(
+        localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [],
+    )
+    const count = (cart && cart.length) || 0
+    const addItem = item => {
+        let double = false
+        cart.map(el => {
+            console.log(el._id !== item._id)
+            if (el._id === item._id) {
+                double = true
+                toast("Le manga a déjà été ajouté au panier", { type: "warning" })
+            }
+        })
+        if (double === false) {
+            if (cart && cart.length > 0) {
+                console.log("first")
                 setCart([...cart, item])
+            } else {
+                setCart([item])
             }
-            else if(!cart){
-                setCart([item]);
-            }
+            toast("Le manga a été ajouté au panier", { type: "success" })
         }
+    }
 
-        const removeItem = (idItem) => {
-            console.log(idItem);
-            
-            localStorage.removeItem("cart")
-            setCart(cart.filter(item => item.id !== idItem));
-        }
+    const removeItem = idItem => {
+        setCart(cart.filter(item => item._id !== idItem))
+        toast("Le manga a été retiré au panier", { type: "success" })
+    }
 
-        const clearCart = () => {
-            setCart(null);
-        }
-    //prend en argument l'élément qu'on va ajouter, et on utilise le setCart c'est comme un push
-    const context = {cart, count, addItem, removeItem, clearCart}
+    const clearCart = () => {
+        localStorage.removeItem("cart")
+        setCart([])
+    }
+    const context = { cart, count, addItem, removeItem, clearCart }
 
-    useEffect(()=> {
-        localStorage.setItem("cart", JSON.stringify(cart)) //si il y a rien dans mon local storage
+    useEffect(() => {
+        localStorage.setItem("cart", JSON.stringify(cart))
         return () => {
             localStorage.setItem("cart", JSON.stringify(cart))
-        };
-    }, [cart]);
+        }
+    }, [cart])
 
-    return (//children equivaut à ce qu'il y a dans App.js
-        <CartContext.Provider value={context}> 
-            {children}
-        </CartContext.Provider>
-    )
+    return <CartContext.Provider value={context}>{children}</CartContext.Provider>
 }
 
-export default CartContext;
+export default CartContext

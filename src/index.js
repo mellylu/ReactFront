@@ -1,64 +1,59 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-} from "react-router-dom";
-import styled from 'styled-components'
+import React from "react"
+import ReactDOM from "react-dom/client"
+import { createBrowserRouter, RouterProvider, Route } from "react-router-dom"
+import styled from "styled-components"
 
-import Login from './pages/login';
-import Register from './pages/register'
-import Forgotpassword from './pages/forgotpassword';
-import Home from './pages/home';
-import Cart from './pages/cart';
+import Login from "./pages/login"
+import Register from "./pages/register"
+import Forgotpassword from "./pages/forgotpassword"
+import Home from "./pages/home"
+import Cart from "./pages/cart"
+import Checkoutsuccess from "./pages/checkout/checkoutsuccess"
+import Resetpassword from "./pages/resetpassword"
 
-import { CartContextProvider } from './context/CartContext'
+import { CartContextProvider } from "./context/CartContext"
 
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import reportWebVitals from './reportWebVitals';
-import { BsCart4 } from 'react-icons/bs';
+import { BsCart4 } from "react-icons/bs"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import "./index.css"
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Login />,
-  },
-  {
-    path: "/Register",
-    element: <Register />,
-  },
-  {
-    path: "/Forgotpassword",
-    element: <Forgotpassword />,
-  },
-  {
-    path: "/Home",
-    element: <Home />
-      
-  },
-  {
-    path: "/Cart",
-    element: <Cart />
-      
-  },
-]);
-const root = ReactDOM.createRoot(document.getElementById('root'));
+    {
+        path: "/",
+        element: <Login />,
+    },
+    {
+        path: "/Register",
+        element: <Register />,
+    },
+    {
+        path: "/Forgotpassword",
+        element: <Forgotpassword />,
+    },
+    {
+        path: "/Home",
+        element: <Home />,
+    },
+    {
+        path: "/Cart",
+        element: <Cart />,
+    },
+    {
+        path: "/Checkoutsuccess",
+        element: <Checkoutsuccess />,
+    },
+    {
+        path: "/Resetpassword",
+        element: <Resetpassword />,
+    },
+])
+const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(
-  <CartContextProvider>
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
-  </CartContextProvider> 
-);
-
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://cra.link/PWA
-serviceWorkerRegistration.unregister();
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+    <CartContextProvider>
+        <React.StrictMode>
+            <RouterProvider router={router} />
+            <ToastContainer />
+        </React.StrictMode>
+    </CartContextProvider>,
+)

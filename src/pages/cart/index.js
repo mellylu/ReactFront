@@ -1,90 +1,149 @@
-import React, {useState, useEffect, useContext} from 'react';
-import { AiFillDelete, AiFillCaretLeft } from 'react-icons/ai';
-import { useNavigate } from 'react-router-dom';
-import Button from '../../components/button';
+import React, { useState, useEffect, useContext } from "react"
+import { AiFillDelete, AiFillCaretLeft } from "react-icons/ai"
+import { useNavigate } from "react-router-dom"
+import { ToastContainer, toast } from "react-toastify"
+import styled from "styled-components"
 
-import Image from '../../components/image';
+import Button from "../../components/button"
+import Image from "../../components/image"
+import Modal from "../../components/modal"
+import Paybutton from "../../components/paybutton"
+import TitlePage from "../../components/titlepage"
 
-import CartContext from '../../context/CartContext';
+import CartContext from "../../context/CartContext"
 
+import mangaService from "../../services/manga.service"
 
 const Cart = () => {
-    const {cart, setCart, clearCart, removeItem} = useContext(CartContext)
+    const { cart, setCart, clearCart, removeItem } = useContext(CartContext)
     const [totalPrice, setTotalPrice] = useState(0)
-    const tableauPrice = []
-    const [count, setCount] = useState(0)
+    const [count, setCount] = useState(1)
     const navigate = useNavigate()
-    const reducer = (accumulator, currentValue) => accumulator + currentValue
 
-    const removeElement = (id) => {
-        console.log(id)
+    useEffect(() => {
+        let total = 0
+        cart?.map(el => (total += el.price))
+
+        setTotalPrice(total)
+    }, [cart])
+
+    const removeElement = id => {
         removeItem(id)
-    }
-
-   
-
-    const totalPriceCart = (el) => {
-        setTotalPrice(totalPrice + el)
     }
 
     const increment = () => {
         setCount(count + 1)
+        // mangaService
+        // .putManga(quantity, id)
+        // .then(data => {
+        //     setCount(data.quantity + 1)
+        // })
     }
     const decrement = () => {
         setCount(count - 1)
     }
 
-    useEffect(() => {
-        console.log("debut totalprice doit etre égale à 0")
-        console.log(totalPrice);
-
-    })
-
-    useEffect(() => {
-        console.log("A chaque fois que totalprice change")
-        console.log(totalPrice);
-        
-    }, [totalPrice])
-
     return (
         <div>
-            <AiFillCaretLeft color='#fefee0' onClick={() => {navigate("/")}}/>
-            <table>
-               <thead>
-                    <tr>
-                        <th>Manga</th>
-                        <th>Nom</th>
-                        <th>Prix</th>
-                        <th>Quantité</th>
-                    </tr>
-                </thead> 
-                <tbody>
-                    {
-                        cart?
-                            cart.map((element) => (
-                                <tr>
-                                <td key={element._id}>
-                                    <Image styleImage={{ width: '100px', margin:"10px" }} path={element.image} description="image manga">
-                                    </Image>
-                                </td>
-                                <td>{element.name}</td>
-                                <td>{element.price} $
-                                {tableauPrice.push(element.price)}</td>
-                                <td><button onClick={decrement}>-</button>{count}<button onClick={increment}>+</button></td>
-                                <td><AiFillDelete onClick={() => removeElement(element._id)}/></td>
-                                {}
-                                {/* {setTotalPrice(totalPrice + element.price)} */}
-                                </tr>
-                            )):
-                            <td>Votre panier est vide</td>
-                        }
-                </tbody>
-            </table>
-            <p>Prix total : {tableauPrice.reduce(reducer)} $</p>
-            <Button onClick={() => clearCart()} title="Vider le panier" />
-            <Button onClick={() => console.log("Acheter")} title="Acheter" />
-        </div>
-    );
-};
+            <AiFillCaretLeft
+                size={40}
+                color="#fefee0"
+                onClick={() => {
+                    navigate("/")
+                }}
+            />
+            <Div>
+                <TitlePage styleTitle={{ align: "center" }} title="Panier" />
 
-export default Cart;
+                <Table>
+                    <thead>
+                        <tr>
+                            <Th>Manga</Th>
+                            <Th>Nom</Th>
+                            <Th>Prix</Th>
+                            <Th>Quantité</Th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {cart.length > 0 ? (
+                            cart?.map(element => (
+                                <tr key={element._id}>
+                                    <Td>
+                                        <Image
+                                            styleImage={{ width: "100px", margin: "10px" }}
+                                            path={element.image}
+                                            description="image manga"
+                                        ></Image>
+                                    </Td>
+                                    <Td>{element.name}</Td>
+                                    <Td>{element.price} $</Td>
+                                    <Td>
+                                        <button onClick={decrement}>-</button>
+                                        {count}
+                                        <button onClick={increment}>+</button>
+                                    </Td>
+                                    <Td>
+                                        <AiFillDelete
+                                            onClick={() => {
+                                                removeElement(element._id)
+                                            }}
+                                        />
+                                    </Td>
+                                    {}
+                                    {/* {setTotalPrice(totalPrice + element.price)} */}
+                                </tr>
+                            ))
+                        ) : (
+                            <Td>Votre panier est vide</Td>
+                        )}
+                    </tbody>
+                </Table>
+                <Button
+                    colorButton={{ color: "#fefee0" }}
+                    styleButton={{ bgColor: "#303030" }}
+                    onClick={() => {
+                        clearCart()
+                    }}
+                    title="Vider le panier"
+                />
+                <br />
+                <P>Prix total : {totalPrice} $</P>
+
+                <br />
+                <Paybutton cartItems={cart} />
+            </Div>
+        </div>
+    )
+}
+
+const Div = styled.div`
+    width: 100%;
+    text-align: center;
+    background-color: #303030;
+    padding-top: 5%;
+    padding-bottom: 5%;
+`
+
+const Table = styled.table`
+    margin: auto;
+    border: 3px solid #fefee0;
+    border-collapse: collapse;
+`
+const Td = styled.td`
+    color: #fefee0;
+    text-transform: uppercase;
+    padding: 10px;
+`
+
+const Th = styled.th`
+    color: #fefee0;
+    text-transform: uppercase;
+    padding: 10px;
+`
+
+const P = styled.p`
+    color: #fefee0;
+    text-transform: uppercase;
+`
+
+export default Cart

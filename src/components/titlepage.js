@@ -1,19 +1,18 @@
-import React from 'react';
-import styled from 'styled-components'
+import React from "react"
+import styled from "styled-components"
 
-const Titlepage = ({title}) => {
+const Titlepage = ({ title, styleTitle }) => {
     return (
         <div>
-            <ModalTitre>{title}</ModalTitre>
+            <ModalTitre styleTitle={styleTitle}>{title}</ModalTitre>
         </div>
-    );
-};
+    )
+}
 
 const ModalTitre = styled.h2`
-   text-transform : uppercase;
-   text-align: left;
-   color:#fefee0;
-   
-   `
+    text-transform: uppercase;
+    text-align: ${({ styleTitle }) => (styleTitle?.align ? styleTitle?.align : "left")};
+    color: ${({ styleTitle }) => (styleTitle?.color ? styleTitle?.color : "#fefee0")};
+`
 
-export default Titlepage;
+export default Titlepage
