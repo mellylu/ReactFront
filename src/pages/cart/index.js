@@ -44,14 +44,16 @@ const Cart = () => {
     }
 
     return (
-        <div>
-            <AiFillCaretLeft
-                size={40}
-                color="#fefee0"
-                onClick={() => {
-                    navigate("/")
-                }}
-            />
+        <DivGlobal>
+            <DivIcon>
+                <AiFillCaretLeft
+                    size={20}
+                    color="#fefee0"
+                    onClick={() => {
+                        navigate("/")
+                    }}
+                />
+            </DivIcon>
             <Div>
                 <TitlePage styleTitle={{ align: "center" }} title="Panier" />
 
@@ -112,9 +114,22 @@ const Cart = () => {
                 <br />
                 <Paybutton cartItems={cart} />
             </Div>
-        </div>
+        </DivGlobal>
     )
 }
+const DivGlobal = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+`
+
+const DivIcon = styled.div`
+    margin-left: 2%;
+    margin-top: 2%;
+    display: flex;
+    flex-direction: row;
+`
 
 const Div = styled.div`
     width: 100%;

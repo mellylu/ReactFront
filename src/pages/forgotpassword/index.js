@@ -18,9 +18,7 @@ const Forgotpassword = () => {
         userService
             .sendEmailToResetPassword(email)
             .then(data => {
-                console.log("dans le reset password")
-                console.log(data)
-                toast("Un email a été envoyé", { type: "warning" })
+                toast("Un email a été envoyé", { type: "success" })
             })
             .catch(err => {
                 console.log(err)

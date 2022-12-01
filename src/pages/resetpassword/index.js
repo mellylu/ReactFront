@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
 import styled from "styled-components"
 import Button from "../../components/button"
 import Input from "../../components/input"
@@ -10,19 +11,21 @@ import userService from "../../services/user.service"
 const Resetpassword = () => {
     const [password, setPassword] = useState()
     const navigate = useNavigate()
+    const [idToken, setIdToken] = useState()
     // console.log(props.location)
     // console.log(props.location.token)
 
     useEffect(() => {
         const url = window.location.search
         const paramUrl = url.split("=")
-        console.log(paramUrl[1])
         const token = paramUrl[1]
         console.log(token)
         userService
             .formResetPassword(token)
             .then(data => {
                 console.log(data)
+                console.log(data.userId)
+                setIdToken(data.data.userId)
             })
             .catch(err => {
                 console.log(err)
@@ -30,20 +33,23 @@ const Resetpassword = () => {
             })
     })
 
+    useEffect(() => {
+        console.log("kkkkkkkkkk")
+        console.log(idToken)
+    }, [idToken])
+
     const handleSubmit = e => {
         e.preventDefault()
         userService
-            .update(password)
+            .update(idToken, password)
             .then(() => {
-                console.log("le password a été réinitialisé")
                 navigate("/")
+                toast("Le mot de passe a été modifié", { type: "success" })
             })
             .catch(err => {
                 console.log(err)
             })
     }
-
-    //dans un useEffect regarder si le token existe sinon redirection
 
     return (
         <Div>
@@ -64,7 +70,7 @@ const Resetpassword = () => {
                 <Button
                     colorButton={{ color: "#303030" }}
                     onClick={e => handleSubmit(e)}
-                    title="Se connecter"
+                    title="Changer le mot de passe"
                 />
             </form>
         </Div>

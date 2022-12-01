@@ -24,7 +24,7 @@ const Home = () => {
     const navigate = useNavigate()
 
     //const { cart, setCart, addItem} = useContext(CartContext)
-    const { addItem, setCart, cart } = useContext(CartContext)
+    const { addItem, setCart, cart, count } = useContext(CartContext)
     //console.log(context)
     if (localStorage.getItem("token") === null) {
         navigate("/")
@@ -64,6 +64,11 @@ const Home = () => {
                 </Li>
                 <Li>
                     <BiShoppingBag color="fefee0" size={20} onClick={() => navigate("/Cart")} />
+                    <Button
+                        colorButton={{ color: "#fefee0" }}
+                        styleButton={{ bgColor: "#303030" }}
+                        title={count}
+                    />
                 </Li>
                 <Li>
                     <SearchBar search={search} size={20} setSearch={setSearch} />

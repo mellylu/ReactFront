@@ -14,13 +14,14 @@ export const CartContextProvider = ({ children }) => {
     const [cart, setCart] = useState(
         localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [],
     )
-    const count = (cart && cart.length) || 0
+    let count = (cart && cart.length) || 0
     const addItem = item => {
         let double = false
         cart.map(el => {
             console.log(el._id !== item._id)
             if (el._id === item._id) {
                 double = true
+                count += 1
                 toast("Le manga a déjà été ajouté au panier", { type: "warning" })
             }
         })

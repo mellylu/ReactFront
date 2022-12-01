@@ -19,13 +19,7 @@ const Checkoutsuccess = () => {
                 styleTitle={{ color: "#fefee0", align: "center" }}
                 title="Votre paiement s'est bien réalisé"
             />
-            <br />
-            <Button
-                colorButton={{ color: "#fefee0" }}
-                styleButton={{ bgColor: "#303030" }}
-                title="Continuer mes achats"
-                onClick={() => navigate("/home")}
-            />
+            <Button title="Continuer mes achats" onClick={() => navigate("/home")} />
         </Div>
     )
 }
@@ -37,6 +31,7 @@ const Div = styled.div`
     justify-content: center;
     width: 100%;
     height: 100%;
+    flex-direction: column;
 `
 
 export default Checkoutsuccess
